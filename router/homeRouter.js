@@ -105,24 +105,18 @@ Router.post('/login', (req, res) => {
 
 Router.post('/items', async (req, res) => {
   try {
-    const {
-      pname,
-      source,
-      destination,
-      remark
-    } = req.body
-    const items = new itemsSchema({
-      pname,
-      source,
-      destination,
-      remark
-    })
-    await items.save()
-    res.render('Add_product')
+    const { pname, source, destination, remark } = req.body;
+    console.log(pname);
+    console.log(source);
+    
+    const items = new itemsSchema({ pname, source, destination, remark });
+    
+    await items.save();
+    res.status(200).json({ message: 'Data stored in MongoDB successfully.' });
   } catch (error) {
-    console.error(error)
-    res.status(500).send('Internal Server Error')
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
   }
-})
+});
 
 module.exports = Router

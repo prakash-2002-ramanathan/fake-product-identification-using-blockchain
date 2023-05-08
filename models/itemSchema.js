@@ -2,10 +2,11 @@ const mongoose=require('mongoose');
 const itemSchema=mongoose.Schema;
 
 const itemsSchema = new itemSchema({
-    pname:String,
-    source:String,
-    destination:String,
-    remark:String
+    pname: { type: String},
+  source: { type: String },
+  destination: { type: String},
+  remark: { type: String},
 });
 
 module.exports=mongoose.model('items',itemsSchema);
+

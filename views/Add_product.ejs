@@ -127,7 +127,7 @@ div.content {
     <!-- <h2>Add Your Products</h2> -->
   </div>
   <div class="formstyl" style="display:flex;justify-content: center;align-items: center;margin-top: 50px;">
-    <form action="/items"  method="post" id="addNameForm" style="width: 400px;text-align: center;" >
+    <form  id="addNameForm" style="width: 400px;text-align: center;" action="items">
       <!-- <div class="mb-3">
         <label for="pid" class="form-label">Product id</label>
         <input type="text" class="form-control" id="pid" aria-describedby="emailHelp">
@@ -357,7 +357,7 @@ div.content {
 		const source=document.getElementById('source');
 		const destination=document.getElementById('destination');
 		const remark=document.getElementById('remark');
-		const pid=getRandomInt();;
+		const pid=getRandomInt();
 		const name = nameInput.value;
 		const psource=source.value;
 		const pdest=destination.value;
@@ -365,6 +365,37 @@ div.content {
 	
 		
 		try {
+			
+			const urk = '/items'; 
+
+			const data = {
+			pname: name,
+			source: psource,
+			destination: pdest,
+			remark: premark
+			};
+			console.log(name);
+
+			const options = {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(data)
+			};
+
+
+			fetch(urk, options)
+			.then(response => response.json())
+			.then(result => {
+				console.log(result);
+				// Handle the response from the server
+			})
+			.catch(error => {
+				console.error(error);
+				// Handle any errors that occur during the request
+			});
+
 			await window.ethereum.enable();
 			const accounts = await web3.eth.getAccounts();
 			const gasPrice = await web3.eth.getGasPrice();
